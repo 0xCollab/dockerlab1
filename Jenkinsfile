@@ -21,7 +21,7 @@ pipeline {
             stage("docker_scan"){
                     steps{
                         sh '''
-                            docker run -d --name ":$BUILD_NUMBER" arminc/clair-db
+                            docker run -d --name "$BUILD_NUMBER" arminc/clair-db
                             sleep 15 # wait for db to come up
                             docker run -p 6060:6060 --link db:postgres -d --name clair arminc/clair-local-scan
                             sleep 1
@@ -43,6 +43,7 @@ pipeline {
             stage('Cleaning up') {
                     steps{
                         sh "docker rmi $registry:$BUILD_NUMBER"
+                        sh "docker rmi "$BUILD_NUMBER""
                         }
                 }                   
         }           
