@@ -18,6 +18,13 @@ pipeline {
                             }
                         }
                 }
+            stage('Removing old containers') {
+                    steps{
+                        sh "docker rmi $registry:$BUILD_NUMBER"
+                        sh "docker rmi $BUILD_NUMBER"
+                        sh "docker rmi clair$BUILD_NUMBER"
+                        }
+                }  
             stage("docker_scan"){
                     steps{
                         sh '''
