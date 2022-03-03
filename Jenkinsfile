@@ -8,7 +8,7 @@ pipeline {
         stages {
             stage('Cloning our Git') {
                     steps {
-                        git 'https://github.com/0xCollab/dockerlab1.git'
+                        checkout scm
                             }
                     }
             stage('Building our image') {
