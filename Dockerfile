@@ -3,3 +3,4 @@ FROM openjdk:latest
 COPY HelloWorld.java /
 RUN javac HelloWorld.java
 ENTRYPOINT ["java","HelloWorld"]
+#test
