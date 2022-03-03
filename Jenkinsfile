@@ -18,19 +18,12 @@ pipeline {
                             }
                         }
                 }
-            stage('Removing old containers') {
-                    steps{
-                        sh "docker rmi $registry:$BUILD_NUMBER"
-                        sh "docker rmi $BUILD_NUMBER"
-                        sh "docker rmi clair$BUILD_NUMBER"
-                        }
-                }  
             stage("docker_scan"){
                     steps{
                         sh '''
                             docker run -d --name "$BUILD_NUMBER" arminc/clair-db
                             sleep 15 # wait for db to come up
-                            docker run -p 6061:6060 --link db:postgres -d --name clair$BUILD_NUMBER arminc/clair-local-scan
+                            docker run -p 6062:6060 --link db:postgres -d --name clair$BUILD_NUMBER arminc/clair-local-scan
                             sleep 1
                             DOCKER_GATEWAY=$(docker network inspect bridge --format "{{range .IPAM.Config}}{{.Gateway}}{{end}}")
                             wget -qO clair-scanner https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64 && chmod +x clair-scanner
