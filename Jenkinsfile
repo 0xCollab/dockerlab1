@@ -42,8 +42,10 @@ pipeline {
                 }
             stage('Cleaning up') {
                     steps{
-                        sh "docker ps"
-                        sh "docker rm $(docker ps -a -q)"
+                        sh '''
+                            docker ps
+                            docker rm $(docker ps -a -q)
+                            '''
                         }
                 }                   
         }           
