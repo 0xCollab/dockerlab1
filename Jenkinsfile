@@ -45,7 +45,8 @@ pipeline {
                     steps{
                         sh '''
                             docker ps
-                            docker kill $(docker ps -a -q)
+                            docker stop $(docker ps -aq)
+                            docker rm $(docker ps -aq)
                             '''
                         }
                 }                   
