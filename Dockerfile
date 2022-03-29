@@ -13,4 +13,4 @@ RUN git clone https://github.com/stamparm/DSVW
 WORKDIR /DSVW
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' dsvw.py
 EXPOSE 65412
-CMD ["python3", "dsvw.py"]
+ENTRYPOINT ["python3", "dsvw.py"]
